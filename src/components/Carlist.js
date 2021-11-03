@@ -3,6 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import Button from '@mui/material/Button';
 import AddCar from './AddCar';
 import Snackbar from '@mui/material/Snackbar';
+import EditCar from './EditCar';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
@@ -12,6 +13,7 @@ function Carlist() {
 
     const [cars, setCars] = useState([]);
     const [open, setOpen] = useState(false);
+    const [msg, setMsg] = useState('')
 
     const handleClose = () => {
         setOpen(false);
@@ -33,6 +35,7 @@ function Carlist() {
             fetch(url, { method: 'DELETE' })
                 .then(response => {
                     if (response.ok) {
+                        setMsg("Car has been deleted sucessfully")
                         setOpen(true);
                         fetchCars();
                     }
@@ -56,6 +59,26 @@ function Carlist() {
             .catch((err) => console.log(err));
     }
 
+    const editCar = (link, updatedCar) => {
+        fetch(link, {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(updatedCar)
+        })
+        .then(responce => {
+            setMsg("Car has been edited sucessfully")
+            // .then(_ => {
+            //     setOpen(true);
+            // fetchCars();
+            // })
+            setOpen(true);
+            fetchCars();
+        })
+        .catch((err) => console.log(err));
+    }
+
     const columns = [
         { field: 'brand', sortable: true, filter: true },
         { field: 'model', sortable: true, filter: true },
@@ -63,6 +86,14 @@ function Carlist() {
         { field: 'fuel', sortable: true, filter: true },
         { field: 'year', width: 120, sortable: true, filter: true },
         { field: 'price', width: 120, sortable: true, filter: true },
+        {
+            headerName: "",
+            sortable: false,
+            filter: false,
+            width: 120,
+            field: "_links.self.href",
+            cellRendererFramework: params => <EditCar editCar={editCar} row={params} />
+        },
         {
             headerName: "",
             filter: false,
@@ -94,7 +125,7 @@ function Carlist() {
             </div>
             <Snackbar
                 open={open}
-                message='Car deleted sucessfully'
+                message={msg}
                 // message={msg}
                 autoHideDuration={3000}
                 onClose={handleClose}
