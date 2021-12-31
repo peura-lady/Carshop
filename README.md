@@ -1,3 +1,25 @@
+# Car Shop made with React.js
+
+Car shop made with React.js using fetch, material-ui and ag-grid. Includes pages such as Main, Delete Car, Add Car, Edit Car, sorting functions
+
+# Screenshots
+
+<b>Main</b> ⤵️<br>
+![screenshot](https://github.com/peura-lady/Carshop/blob/main/main.PNG)
+<br />
+<br />
+<br />
+<b>Add a Car</b> ⤵️<br>
+![screenshot](https://github.com/peura-lady/Carshop/blob/main/addcar.PNG)
+<br />
+<br />
+<br />
+<b>Edit a Car</b> ⤵️<br>
+![screenshot](https://github.com/peura-lady/Carshop/blob/main/editcar.PNG)
+<br />
+<br />
+<br />
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
